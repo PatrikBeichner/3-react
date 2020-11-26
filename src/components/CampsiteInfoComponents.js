@@ -1,12 +1,9 @@
 import React from "react";
 import { Card, CardImg, CardText, CardBody, CardTitle } from "reactstrap";
 
-class CampsiteInfo extends React.Component {
-  state = {
-    toggle: true,
-  };
 
-  renderCampsite(campsite) {
+
+  function RenderCampsite({campsite}) {
     return (
       <div className="col-md-5 m-1">
         <Card>
@@ -20,8 +17,7 @@ class CampsiteInfo extends React.Component {
     );
   }
 
-  renderComments(comments) {
-    if (this.state.toggle) {
+  function RenderComments({comments}) {
       if (comments) {
         return (
           <div className="col-md-5 m-1">
@@ -36,35 +32,25 @@ class CampsiteInfo extends React.Component {
                 </div>
               );
             })}
-            <button onClick={() => this.setState({ toggle: !this.state.toggle })}>Toggle comments</button>
           </div>
         );
-      } else {
-        return <div></div>;
-      }
-    } else {
-      return (
-        <div>
-          <button onClick={() => this.setState({ toggle: !this.state.toggle })}>Toggle comments</button>
-        </div>
-      );
-    }
+      } 
+      return <div />;
   }
 
-  render() {
-    if (this.props.campsite) {
+  function CampsiteInfo(props) {
+    if (props.campsite) {
       return (
         <div className="container">
           <div className="row">
-            {this.renderCampsite(this.props.campsite)}
-            {this.renderComments(this.props.campsite.comments)}
-            <div className="col">{/* <button variant="primary">Toggle comments</button>{" "} */}</div>
+            <RenderCampsite campsite={props.campsite} />
+            <RenderComments comments={props.campsite.comments} />
           </div>
         </div>
       );
-    } else {
-      return <div></div>;
-    }
+    } 
+      return <div />;
+    
   }
-}
+
 export default CampsiteInfo;
