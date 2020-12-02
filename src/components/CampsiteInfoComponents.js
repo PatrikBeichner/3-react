@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { Link } from "react-router-dom";
 
@@ -30,6 +30,7 @@ function RenderComments({ comments }) {
             </div>
           );
         })}
+        <CommentForm />
       </div>
     );
   }
@@ -62,4 +63,62 @@ function CampsiteInfo(props) {
   return <div />;
 }
 
-export default CampsiteInfo;
+class CommentForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      comment: '',
+      name: '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({comment: event.target.comment});
+  }
+
+  handleSubmit(event) {
+    alert('Your comment was submitted: ' + this.state.comment);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <form onSubmit={this.handleSubmit} >
+          <div className="form-group">
+            <input
+              className="form-control"
+              placeholder='Name'
+              name={this.state.name}
+              onChange={this.handleChange}
+              name="name"
+              type="text"
+            />
+          </div>
+
+          <div className="form-group">
+            <textarea
+              className="form-control"
+              placeholder='comment'
+              comment={this.state.comment}
+              onChange={this.handleChange}
+              name="comment"
+              rows="5"
+            />
+          </div>
+
+          <div className="form-group">
+          <input type="submit" value="Submit" />
+            {/* <button className="btn btn-primary" type="submit" value="submit">
+              Comment
+            </button> */}
+          </div>
+        </form>
+      </React.Fragment>
+    );
+}
+}
+
+export default CampsiteInfo
