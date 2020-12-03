@@ -28,45 +28,44 @@ class Contact extends Component {
 
   handleBlur = (field) => () => {
     this.setState({
-        touched: {...this.state.touched, [field]: true}
+      touched: { ...this.state.touched, [field]: true },
     });
-  }
+  };
 
   validate(firstName, lastName, phoneNum, email) {
-      const errors = {
-          firstName: '',
-          lastName: '',
-          phoneNum: '',
-          email: ''
-      };
+    const errors = {
+      firstName: "",
+      lastName: "",
+      phoneNum: "",
+      email: "",
+    };
 
-      if (this.state.touched.firstName) {
-          if (firstName.length < 2) {
-              errors.firstName = 'First name must be at least 2 characters.';
-          } else if (firstName.length > 15) {
-              errors.firstName = 'First name must be 15 or less characters.';
-          }
+    if (this.state.touched.firstName) {
+      if (firstName.length < 2) {
+        errors.firstName = "First name must be at least 2 characters.";
+      } else if (firstName.length > 15) {
+        errors.firstName = "First name must be 15 or less characters.";
       }
+    }
 
-      if (this.state.touched.lastName) {
-        if (lastName.length < 2) {
-            errors.lastName = 'Last name must be at least 2 characters.';
-        } else if (lastName.length > 15) {
-            errors.lastName = 'Last name must be 15 or less characters.';
-        }
+    if (this.state.touched.lastName) {
+      if (lastName.length < 2) {
+        errors.lastName = "Last name must be at least 2 characters.";
+      } else if (lastName.length > 15) {
+        errors.lastName = "Last name must be 15 or less characters.";
+      }
     }
 
     const reg = /^\d+$/;
     if (this.state.touched.phoneNum && !reg.test(phoneNum)) {
-        errors.phoneNum = 'The phone number should contain only numbers.';
+      errors.phoneNum = "The phone number should contain only numbers.";
     }
 
-    if (this.state.touched.email && !email.includes('@')) {
-        errors.email = 'Email should contain a @';
+    if (this.state.touched.email && !email.includes("@")) {
+      errors.email = "Email should contain a @";
     }
 
     return errors;
-
   }
 
   handleInputChange(event) {
@@ -86,7 +85,6 @@ class Contact extends Component {
   }
 
   render() {
-
     const errors = this.validate(this.state.firstName, this.state.lastName, this.state.phoneNum, this.state.email);
 
     return (
@@ -231,8 +229,7 @@ class Contact extends Component {
                     name="feedback"
                     rows="12"
                     value={this.state.feedback}
-                    onChange={this.handleInputChange}
-                  ></Input>
+                    onChange={this.handleInputChange}></Input>
                 </Col>
               </FormGroup>
               <FormGroup row>
