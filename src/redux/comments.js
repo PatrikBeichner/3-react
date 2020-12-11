@@ -12,8 +12,8 @@ export const Comments = (state = {errMess: null, comments: []}, action) => {
         case ActionTypes.ADD_COMMENT:
             const comment = action.payload;
             //comment.id = state.length; fine when state was simple array, now array is stored in state.comments object
-            comment.id = state.comments.length;
-            comment.date = new Date().toISOString();
+            // comment.id = state.comments.length; no longer need id json server adds automatically
+            // comment.date = new Date().toISOString(); date added in postComment action creator
             //return state.concat(comments);  fine when state was simple array, now need to spread previous state and update just comments property
             return {...state, comments: state.comments.concat(comment)};
         default:
