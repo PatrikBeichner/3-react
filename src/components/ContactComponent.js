@@ -3,12 +3,11 @@ import { Breadcrumb, BreadcrumbItem, Button, Label, Col, Row } from "reactstrap"
 import { Link } from "react-router-dom";
 import { Control, Form, Errors, actions } from "react-redux-form";
 
-const required = val => val && val.length;
-const maxLength = len => val => !val || (val.length <= len);
-const minLength = len => val => val && (val.length >= len);
-const isNumber = val => !isNaN(+val);
-const validEmail = val => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
-
+const required = (val) => val && val.length;
+const maxLength = (len) => (val) => !val || val.length <= len;
+const minLength = (len) => (val) => val && val.length >= len;
+const isNumber = (val) => !isNaN(+val);
+const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
 class Contact extends Component {
   constructor(props) {
@@ -34,8 +33,9 @@ class Contact extends Component {
   }
 
   handleSubmit(values) {
-    console.log("Current state is: " + JSON.stringify(values));
-    alert("Current state is: " + JSON.stringify(values));
+    // console.log("Current state is: " + JSON.stringify(values));
+    // alert("Current state is: " + JSON.stringify(values));
+    this.props.postFeedback(values);
     this.props.resetFeedbackForm();
   }
 
@@ -100,15 +100,15 @@ class Contact extends Component {
                       maxLength: maxLength(15),
                     }}
                   />
-                  <Errors 
+                  <Errors
                     className="text-danger"
                     model=".firstName"
                     show="touched"
                     component="div"
                     messages={{
-                      required: 'Required',
-                      minLength: 'Must be at least 2 characters',
-                      maxLength: 'Must be 15 characters or less'
+                      required: "Required",
+                      minLength: "Must be at least 2 characters",
+                      maxLength: "Must be 15 characters or less",
                     }}
                   />
                 </Col>
@@ -130,15 +130,15 @@ class Contact extends Component {
                       maxLength: maxLength(15),
                     }}
                   />
-                  <Errors 
+                  <Errors
                     className="text-danger"
                     model=".lastName"
                     show="touched"
                     component="div"
                     messages={{
-                      required: 'Required',
-                      minLength: 'Must be at least 2 characters',
-                      maxLength: 'Must be 15 characters or less'
+                      required: "Required",
+                      minLength: "Must be at least 2 characters",
+                      maxLength: "Must be 15 characters or less",
                     }}
                   />
                 </Col>
@@ -158,19 +158,19 @@ class Contact extends Component {
                       required,
                       minLength: minLength(10),
                       maxLength: maxLength(15),
-                      isNumber
+                      isNumber,
                     }}
                   />
-                  <Errors 
+                  <Errors
                     className="text-danger"
                     model=".phoneNum"
                     show="touched"
                     component="div"
                     messages={{
-                      required: 'Required',
-                      minLength: 'Must be at least 10 characters',
-                      maxLength: 'Must be 15 characters or less',
-                      isNumber: 'Must be a number'
+                      required: "Required",
+                      minLength: "Must be at least 10 characters",
+                      maxLength: "Must be 15 characters or less",
+                      isNumber: "Must be a number",
                     }}
                   />
                 </Col>
@@ -191,14 +191,14 @@ class Contact extends Component {
                       validEmail,
                     }}
                   />
-                  <Errors 
+                  <Errors
                     className="text-danger"
                     model=".email"
                     show="touched"
                     component="div"
                     messages={{
-                      required: 'Required',
-                      validEmail: 'Invalid email address'
+                      required: "Required",
+                      validEmail: "Invalid email address",
                     }}
                   />
                 </Col>
@@ -207,11 +207,7 @@ class Contact extends Component {
                 <Col md={{ size: 4, offset: 2 }}>
                   <div className="form-check">
                     <Label check>
-                      <Control.checkbox 
-                        model=".agree"
-                        name="agree" 
-                        className="form-check-input" />{" "}
-                      <strong>May we contact you?</strong>
+                      <Control.checkbox model=".agree" name="agree" className="form-check-input" /> <strong>May we contact you?</strong>
                     </Label>
                   </div>
                 </Col>
